@@ -2,12 +2,15 @@
 
 ovs_repo=$1
 ovs_branch=$2
-repo_action=$3
-net_dev=$4
-controller_cidr=$5
-controller_ip=$6
-hosts_file=$7
-https_proxy=$8 # optional
+ovs_repo_action=$3
+ovn_repo=$4
+ovn_branch=$5
+ovn_repo_action=$6
+net_dev=$7
+controller_cidr=$8
+controller_ip=$9
+hosts_file=${10}
+https_proxy=${11} # optional
 
 echo "
 {
@@ -17,7 +20,10 @@ echo "
         \"deployment_name\": \"ovn-controller-node\",
         \"ovs_repo\": \"$ovs_repo\",
         \"ovs_branch\": \"$ovs_branch\",
-        \"repo_action\": \"$repo_action\",
+        \"ovs_repo_action\": \"$ovs_repo_action\",
+        \"ovn_repo\": \"$ovn_repo\",
+        \"ovn_branch\": \"$ovn_branch\",
+        \"ovn_repo_action\": \"$ovn_repo_action\",
         \"ovs_user\": \"root\",
         \"net_dev\": \"$net_dev\","
 
@@ -48,7 +54,10 @@ for node in `cat $hosts_file`; do
             \"deployment_name\": \"ovn-farm-node-$i\",
             \"ovs_repo\": \"$ovs_repo\",
             \"ovs_branch\": \"$ovs_branch\",
-            \"repo_action\": \"$repo_action\",
+            \"ovs_repo_action\": \"$ovs_repo_action\",
+            \"ovn_repo\": \"$ovn_repo\",
+            \"ovn_branch\": \"$ovn_branch\",
+            \"ovn_repo_action\": \"$ovn_repo_action\",
             \"ovs_user\" : \"root\","
     if test X$https_proxy != X; then
     echo "
